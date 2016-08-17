@@ -1,3 +1,4 @@
+# This migration comes from api_flashcards (originally 20160817172749)
 class CreateApiFlashcardsCards < ActiveRecord::Migration
   def change
     create_table :api_flashcards_cards do |t|
