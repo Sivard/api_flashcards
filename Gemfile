@@ -14,6 +14,7 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+gem 'sorcery'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
