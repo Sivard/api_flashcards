@@ -172,6 +172,7 @@ DEPENDENCIES
   api_flashcards!
   capybara
   factory_girl_rails
+  nokogiri
   responders
   rspec-rails (~> 3.5)
   sorcery

@@ -1,1 +1,1 @@
-ApiFlashcards::User.create(email: 'example@mail.ru', password: '1234')
+ApiFlashcards::Engine.load_seed

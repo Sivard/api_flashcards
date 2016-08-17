@@ -18,6 +18,7 @@ gemspec
 gem 'active_model_serializers'
 gem 'responders'
 gem 'sorcery'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
