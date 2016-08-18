@@ -6,7 +6,7 @@ module ApiFlashcards
 
 
     describe "GET #index" do
-      let(:user) { create(:api_flashcards_user) }
+      let(:user) { create(:user) }
 
       before(:each) do
         page.driver.browser.authorize user.email, '1234'
