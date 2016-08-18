@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160817172749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_flashcards_cards", force: :cascade do |t|
+    t.text     "original_text"
+    t.text     "translated_text"
+    t.datetime "review_date",                   null: false
+    t.integer  "user_id",                       null: false
+    t.integer  "interval",        default: 1,   null: false
+    t.integer  "repeat",          default: 1,   null: false
+    t.float    "efactor",         default: 2.5, null: false
+    t.integer  "attempt",         default: 1,   null: false
+    t.integer  "quality",         default: 5,   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
   create_table "api_flashcards_users", force: :cascade do |t|
     t.string   "email",            null: false

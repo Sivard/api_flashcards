@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :api_flashcards_card, class: 'ApiFlashcards::Card' do
+  factory :card, class: 'ApiFlashcards::Card' do
     original_text 'дом'
     translated_text 'house'
     interval 1

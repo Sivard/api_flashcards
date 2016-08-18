@@ -4,7 +4,7 @@ class CreateApiFlashcardsCards < ActiveRecord::Migration
       t.text     :original_text
       t.text     :translated_text
       t.datetime :review_date, :null => false
-      t.integer  :api_flashcards_user_id, :null => false
+      t.integer  :user_id, :null => false
       t.integer  :interval, :null => false, default: 1
       t.integer  :repeat, :null => false, default: 1
       t.float    :efactor, :null => false, default: 2.5
