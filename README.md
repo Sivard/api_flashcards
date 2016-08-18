@@ -17,4 +17,8 @@ Mount engine to app
 
 to `config/routes.rb`
 
+# Test
+
+if you want test this engine, rename card.test.rb and user.test.rb to card.rb and user.rb
+
 This project rocks and uses MIT-LICENSE.
