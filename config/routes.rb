@@ -1,5 +1,5 @@
 ApiFlashcards::Engine.routes.draw do
-  root 'base#index'
+  root to: "base#index"
 
   get 'base/index'
 
