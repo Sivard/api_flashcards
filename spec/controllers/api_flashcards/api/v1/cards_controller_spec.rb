@@ -2,30 +2,54 @@ require 'rails_helper'
 
 module ApiFlashcards
   RSpec.describe Api::V1::CardsController, type: :controller do
+    routes { ApiFlashcards::Engine.routes }
+
     let(:user) { create(:user) }
     before do
       10.times do
-        create(:card, user: user)
+        # create(:card)
+        Card.create(original_text: 'дом',
+                    translated_text: 'house',
+                    interval: 1,
+                    repeat: 1,
+                    efactor: 2.5,
+                    quality: 5,
+                    attempt: 1,
+                    review_date: Time.now,
+                    api_flashcards_user_id: user.id)
       end
 
       page.driver.browser.authorize user.email, '1234'
     end
 
     describe 'index page list' do
-      it 'get index' do
+      before do
         visit api_v1_cards_path
+      end
+      
+      it 'check success response' do
+        expect(response).to be_success
+      end
+
+      it 'check number objects' do
+        json = JSON.parse(page.body)
+        expect(json.length).to eq(10)
       end
     end
 
-    # before do
-    #   @mock_controller = mock("ApplicationController") 
-    #   @mock_controller.any_instance.stub(:current_user).and_return(User.first)
-    # end
+    describe 'update' do
+      it 'success update' do
+        card = Card.last
+        card.original_text = 'Тестовое слово'
+        post "/api/v1/cards/#{card.id}", card.to_json, { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+        card_new = Card.last
+        expect(card_new.original_text).to eq('Тестовое слово')
+      end
+    end
 
     # it 'GET index' do
     #   # expect(Card.count).to eq(1)
-    #   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    #   controller.stub_chain(:current_user, :cards).and_return(user.cards)
     #   get '/api_flashcards/api/v1/cards'
 
     #   expect(response.code).to eq("200")

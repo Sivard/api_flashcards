@@ -19,15 +19,15 @@ ActiveRecord::Schema.define(version: 20160817172749) do
   create_table "api_flashcards_cards", force: :cascade do |t|
     t.text     "original_text"
     t.text     "translated_text"
-    t.datetime "review_date",                   null: false
-    t.integer  "user_id",                       null: false
-    t.integer  "interval",        default: 1,   null: false
-    t.integer  "repeat",          default: 1,   null: false
-    t.float    "efactor",         default: 2.5, null: false
-    t.integer  "attempt",         default: 1,   null: false
-    t.integer  "quality",         default: 5,   null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "review_date",                          null: false
+    t.integer  "api_flashcards_user_id"
+    t.integer  "interval",               default: 1,   null: false
+    t.integer  "repeat",                 default: 1,   null: false
+    t.float    "efactor",                default: 2.5, null: false
+    t.integer  "attempt",                default: 1,   null: false
+    t.integer  "quality",                default: 5,   null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "api_flashcards_users", force: :cascade do |t|
@@ -40,4 +40,5 @@ ActiveRecord::Schema.define(version: 20160817172749) do
 
   add_index "api_flashcards_users", ["email"], name: "index_api_flashcards_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "api_flashcards_cards", "api_flashcards_users"
 end
