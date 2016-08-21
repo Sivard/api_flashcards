@@ -19,12 +19,12 @@ module ApiFlashcards
                     api_flashcards_user_id: user.id)
       end
 
-      page.driver.browser.authorize user.email, '1234'
+      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user.email,'1234')
     end
 
     describe 'index page list' do
       before do
-        visit api_v1_cards_path
+        get :index, {format: 'json'}
       end
       
       it 'check success response' do
@@ -32,46 +32,26 @@ module ApiFlashcards
       end
 
       it 'check number objects' do
-        json = JSON.parse(page.body)
+        json = JSON.parse(response.body)
         expect(json.length).to eq(10)
       end
     end
 
     describe 'update' do
-      # it 'success update' do
-      #   @request.headers['Content-Type'] = 'application/vnd.api+json'
+      it 'success update' do
+        card = Card.last
+        patch :update, {format: 'json', id: card, card: FactoryGirl.attributes_for(:card, original_text: 'Тестовое слово')}
 
-      #   card = Card.last
-      #   card.original_text = 'Тестовое слово'
-      #   # jsondata = card.to_json
-      #   # patch :update, card.to_json #, jsondata.merge({:id => card.id})
-      #   post :update
-      #   # patch action: 'update', controller: "api/v1/cards"
-
-      #   card_new = Card.last
-      #   expect(card_new.original_text).to eq('Тестовое слово')
-      # end
+        card.reload
+        expect(card.original_text).to eq('Тестовое слово')
+      end
     end
 
     describe 'create' do
-      # it 'success create' do
-      #   @request.headers['Content-Type'] = 'application/vnd.api+json'
-
-      #   card = Card.new(original_text: 'Тестовое слово',
-      #                      translated_text: 'house',
-      #                      interval: 1,
-      #                      repeat: 1,
-      #                      efactor: 2.5,
-      #                      quality: 5,
-      #                      attempt: 1,
-      #                      review_date: Time.now,
-      #                      api_flashcards_user_id: user.id)
-
-      #   json = {card: {original_text: 'Тестовое слово' } }
-      #   post :create, json.to_json
-
-      #   expect(Card.count).to eq(11)
-      # end
+      it 'success create' do
+        post :create, format: 'json', card: FactoryGirl.attributes_for(:card, original_text: 'Тестовое слово')
+        expect(Card.count).to eq(11)
+      end
     end
   end
 end
